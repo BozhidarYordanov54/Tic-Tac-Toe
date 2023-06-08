@@ -22,6 +22,7 @@ sf::RectangleShape Shapes::DrawShape::drawCross(int row, int column, const unsig
     sf::RectangleShape line1(sf::Vector2f(size, thickness));
 
     sf::RectangleShape line2(sf::Vector2f(size, thickness));
+    sf::RectangleShape line3(sf::Vector2f(size, thickness));
 
     return line1;
 }
