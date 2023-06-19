@@ -47,9 +47,9 @@ int main()
 
         //Update the frame
 
-        window.draw(shape.drawCircle(0, 0, gridSize, window, windowWidth, windowHeight));
-        window.draw(shape.drawCross(1, 1, gridSize, font));
-
+        //shape.drawCircle(2, 2, gridSize, window, windowWidth, windowHeight);
+        shape.drawCross(0, 1, gridSize, window, windowWidth, windowHeight);
+       
         //End update
 
 
