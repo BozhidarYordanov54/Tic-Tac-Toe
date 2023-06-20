@@ -10,17 +10,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Tic-Tac-Toe");
 
-    //Grid
-    sf::RectangleShape grid(sf::Vector2f(gridSize, gridSize));
-    grid.setFillColor(sf::Color::Transparent);
-    grid.setOutlineThickness(1.5f);
-    grid.setOutlineColor(sf::Color::Black);
-
     Shapes::DrawShape shape;
-
-    sf::Font font;
-
-    //TODO figure out why fonts aren't working
 
     sf::Event event;
     while (window.isOpen())
@@ -35,24 +25,14 @@ int main()
         }
 
         window.clear(sf::Color::White);
-
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                grid.setPosition(gridSize * i, gridSize * j);
-                window.draw(grid);
-            }
-        }
+        shape.drawGrid(gridSize, window);
 
         //Update the frame
 
-        //shape.drawCircle(2, 2, gridSize, window, windowWidth, windowHeight);
-        shape.drawCross(0, 1, gridSize, window, windowWidth, windowHeight);
+        shape.drawCircle(0, 0, gridSize, window, windowWidth, windowHeight);
+        shape.drawCross(1, 1, gridSize, window, windowWidth, windowHeight);
        
         //End update
-
-
         window.display();
     }
 
