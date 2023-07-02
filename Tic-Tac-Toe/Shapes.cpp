@@ -26,7 +26,7 @@ void Shapes::DrawShape::drawCircle(int row, int column, const unsigned int gridS
     circle.setOutlineThickness(3.0f);
     circle.setOutlineColor(sf::Color::Red);
 
-    circle.setPosition(sf::Vector2f(((windowWidth / 2.0f) - circleRadius) + gridSize * column - 150, ((windowHeight / 2.0f) - circleRadius) + gridSize * row - 150));
+    circle.setPosition(sf::Vector2f(((windowWidth / 2.0f) - circleRadius) + gridSize * row - 150, ((windowHeight / 2.0f) - circleRadius) + gridSize * column - 150));
 
     window.draw(circle);
 }
@@ -46,8 +46,8 @@ void Shapes::DrawShape::drawCross(int row, int column, const unsigned int gridSi
     line1.setOrigin(size / 2.0f, thickness / 2.0f);
     line2.setOrigin(size / 2.0f, thickness / 2.0f);
 
-    float posX = ((windowWidth / 2.0f) - size) + gridSize * column;
-    float posY = ((windowWidth / 2.0f) - size) + gridSize * row;
+    float posX = ((windowWidth / 2.0f) - size) + gridSize * row;
+    float posY = ((windowWidth / 2.0f) - size) + gridSize * column;
 
     line1.setPosition(sf::Vector2f(posX, posY));
     line2.setPosition(sf::Vector2f(posX, posY));

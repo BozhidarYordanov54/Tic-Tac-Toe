@@ -49,6 +49,43 @@ unsigned int mousePos(sf::Event& event)
     return value;
 }
 
+bool checkWin(const std::vector<sf::Vector2i>& positions)
+{
+    // Possible winning combinations
+    const std::vector<std::vector<sf::Vector2i>> winCombinations = {
+        {{0, 0}, {0, 1}, {0, 2}}, // Horizontal rows
+        {{1, 0}, {1, 1}, {1, 2}},
+        {{2, 0}, {2, 1}, {2, 2}},
+        {{0, 0}, {1, 0}, {2, 0}}, // Vertical columns
+        {{0, 1}, {1, 1}, {2, 1}},
+        {{0, 2}, {1, 2}, {2, 2}},
+        {{0, 0}, {1, 1}, {2, 2}}, // Diagonals
+        {{0, 2}, {1, 1}, {2, 0}}
+    };
+
+    for (const auto& combination : winCombinations)
+    {
+        bool isWin = true;
+
+        for (const auto& pos : combination)
+        {
+            if (std::find(positions.begin(), positions.end(), pos) == positions.end())
+            {
+                isWin = false;
+                break;
+            }
+        }
+
+        if (isWin)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Tic-Tac-Toe");
@@ -76,8 +113,8 @@ int main()
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             unsigned int pos = mousePos(event);
-            int row = pos % 10 - 1;
-            int column = pos / 10 - 1;
+            int row = pos / 10 - 1;
+            int column = pos % 10 - 1;
 
             if (row >= 0 && column >= 0)
             {
@@ -109,10 +146,18 @@ int main()
                     if (circlePositions.size() == exesPositions.size())
                     {
                         circlePositions.push_back(sf::Vector2i(row, column));
+                        if (checkWin(circlePositions))
+                        {
+                            std::cout << "Circle wins!" << std::endl;
+                        }
                     }
                     else
                     {
                         exesPositions.push_back(sf::Vector2i(row, column));
+                        if (checkWin(exesPositions))
+                        {
+                            std::cout << "Exes Win!" << std::endl;
+                        }
                     }
                 }
             }
