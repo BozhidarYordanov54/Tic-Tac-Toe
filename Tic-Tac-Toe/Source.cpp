@@ -95,6 +95,13 @@ int main()
 
     std::vector<sf::Vector2i> circlePositions;
     std::vector<sf::Vector2i> exesPositions;
+    
+    bool isGameOver = false;
+
+    //Generating random number for determining player turn at the begging of the game
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
+    int playerTurn = 1 + (std::rand() % 10);
 
     while (window.isOpen())
     {
@@ -110,19 +117,22 @@ int main()
 
         shape.drawGrid(gridSize, window);
 
+        int row = 0;
+        int col = 0;
+
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             unsigned int pos = mousePos(event);
-            int row = pos / 10 - 1;
-            int column = pos % 10 - 1;
+            row = pos / 10 - 1;
+            col = pos % 10 - 1;
 
-            if (row >= 0 && column >= 0)
+            if (row >= 0 && col >= 0)
             {
                 bool positionOccupied = false;
 
                 for (const auto& position : circlePositions)
                 {
-                    if (position.x == row && position.y == column)
+                    if (position.x == row && position.y == col)
                     {
                         positionOccupied = true;
                         break;
@@ -133,7 +143,7 @@ int main()
                 {
                     for (const auto& position : exesPositions)
                     {
-                        if (position.x == row && position.y == column)
+                        if (position.x == row && position.y == col)
                         {
                             positionOccupied = true;
                             break;
@@ -145,18 +155,20 @@ int main()
                 {
                     if (circlePositions.size() == exesPositions.size())
                     {
-                        circlePositions.push_back(sf::Vector2i(row, column));
+                        circlePositions.push_back(sf::Vector2i(row, col));
                         if (checkWin(circlePositions))
                         {
                             std::cout << "Circle wins!" << std::endl;
+                            isGameOver = true; // Player has won
                         }
                     }
                     else
                     {
-                        exesPositions.push_back(sf::Vector2i(row, column));
+                        exesPositions.push_back(sf::Vector2i(row, col));
                         if (checkWin(exesPositions))
                         {
                             std::cout << "Exes Win!" << std::endl;
+                            isGameOver = true; // Player has won
                         }
                     }
                 }
@@ -170,10 +182,10 @@ int main()
         }
 
         // Draw exes
-        for (const auto& position : exesPositions)
-        {
-            shape.drawCross(position.x, position.y, gridSize, window, windowWidth, windowHeight);
-        }
+       //for (const auto& position : exesPositions)
+       //{
+       //    shape.drawCross(position.x, position.y, gridSize, window, windowWidth, windowHeight);
+       //}
 
         window.display();
     }
